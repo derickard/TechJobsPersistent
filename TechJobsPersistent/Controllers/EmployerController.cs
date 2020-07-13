@@ -32,7 +32,7 @@ namespace TechJobsPersistent.Controllers
         }
 
         [HttpPost("/Employer/Add")]
-        public async Task<IActionResult> ProcessAddEmployerForm([Bind("Name,Location")] AddEmployerViewModel addEmployerViewModel)
+        public IActionResult ProcessAddEmployerForm([Bind("Name,Location")] AddEmployerViewModel addEmployerViewModel)
         {
             if(ModelState.IsValid)
             {
@@ -42,7 +42,7 @@ namespace TechJobsPersistent.Controllers
                     Location = addEmployerViewModel.Location
                 };
                 context.Employers.Add(newEmployer);
-                await context.SaveChangesAsync();
+                context.SaveChanges();
                 return Redirect("/Employer");
             }
             return View("Add",addEmployerViewModel);
